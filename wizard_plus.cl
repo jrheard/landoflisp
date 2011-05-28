@@ -17,7 +17,7 @@
 
 (game-action weld chain bucket attic
 			 (if (and (have 'bucket) (not *chain-welded*))
-				 (progn (setf *chain-welded 't)
+				 (progn (setf *chain-welded* 't)
 						'(the chain is now securely welded to the bucket.))
 				 '(you do not have a bucket.)))
 
@@ -28,3 +28,8 @@
 				 (progn (setf *bucket-filled* 't)
 						'(the bucket is now full of water))
 				 '(the water level is too low to reach.)))
+
+(game-action splash bucket wizard living-room
+			 (cond ((not *bucket-filled*) '(the bucket has nothing in it.))
+				   ((have 'frog) '(the wizard awakens and sees that you stole his frog. he is so upset that he banishes you to the netherworlds - you lose! the end.))
+				   (t '(the wizard awakens from his slumber and greets you warmly. he hands you the magic low-carb donut - you win! the end.))))
