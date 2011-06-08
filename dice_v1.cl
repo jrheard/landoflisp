@@ -93,20 +93,8 @@
 							   (f (cdr lst)
 								  (1- n)
 								  (cons (list cur-player (1+ cur-dice)) acc))
-							   (f (cdr lst) n (cons (car lst) acc)))))))))
-  (board-array (f (coerce board 'list) spare-dice ())))
-
-(defun add-new-dice (board player spare-dice)
-  (labels ((f (lst n)
-			 (cond ((null lst) nil)
-				   ((zerop n) lst)
-				   (t (let ((cur-player (caar lst))
-							(cur-dice (cadar lst)))
-						   (if (and (eq cur-player player) (< cur-dice *max-dice*))
-							   (cons (list cur-player (1+ cur-dice))
-									 (f (cdr lst) (1- n)))
-							   (cons (car lst) (f (cdr lst) n))))))))
-		  (board-array (f (coerce board 'list) spare-dice))))
+							   (f (cdr lst) n (cons (car lst) acc))))))))
+  (board-array (f (coerce board 'list) spare-dice ()))))
 
 ;; okay now here are some functions for actually playing the game
 
